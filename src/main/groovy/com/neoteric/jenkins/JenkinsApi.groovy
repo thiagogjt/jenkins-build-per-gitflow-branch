@@ -95,6 +95,9 @@ class JenkinsApi {
         def root = new XmlParser().parseText(entryConfig)
         // update branch name
         root.scm.branches."hudson.plugins.git.BranchSpec".name[0].value = "*/$branchName"
+        
+        // update local branch
+        root.scm.extensions."hudson.plugins.git.extensions.impl.LocalBranch".localBranch[0].value = "$branchName"
 
         // update GIT url
         root.scm.userRemoteConfigs."hudson.plugins.git.UserRemoteConfig".url[0].value = "$gitUrl"
